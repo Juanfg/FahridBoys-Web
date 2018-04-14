@@ -17,10 +17,10 @@
     <div class="container-fluid">
       <div class="card card-map">
         <div class="header">
-          <h4 class="title">Maps</h4>
+          <h4 class="title">{{ title }}</h4>
         </div>
         <div class="map">
-          <vue-google-heatmap id="map" :points="points" />
+          <vue-google-heatmap id="map" :points="{{ points }}" />
         </div>
       </div>
     </div>
@@ -31,9 +31,9 @@
 import axios from 'axios'
 
 export default {
+    props: ['title'],
     data() {
       return {
-        points: [],
         errors: []
       }
     },

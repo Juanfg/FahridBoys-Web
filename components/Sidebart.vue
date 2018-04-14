@@ -1,10 +1,5 @@
 <template>
-  <div class="sidebar" data-background-color="white" data-active-color="danger">
-
-    <!--
-    Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
-    Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
-  -->
+  <div class="sidebar" data-background-color="black" data-active-color="danger">
 
   <div class="sidebar-wrapper">
     <div class="logo">
@@ -14,17 +9,10 @@
     </div>
 
     <ul class="nav">
-      <li v-bind:class="{ active: activeId == 1 }">
-        <a href="#" v-on:click="changeActiveId(1)">
-          <i class="ti-map"></i>
-          <p>Maps</p>
-        </a>
-      </li>
-      <li v-bind:class="{ active: activeId == 2}">
-        <a href="#" v-on:click="changeActiveId(2)">
-          <i class="ti-user"></i>
-          <p>Users</p>
-        </a>
+      <li v-for="category in categories">
+        <nuxt-link :to="'/'+category.id">
+          <p>{{ category.name }}</p>
+        </nuxt-link>
       </li>
     </ul>
   </div>
@@ -32,15 +20,27 @@
 </template>
 
 <script>
+import axios from 'axios'
+
   export default {
     data() {
       return {
-        activeId: 1
+        categories: [],
+        errors: []
       }
     },
+    mounted() {
+      axios.get('http://localhost:8081/api/categories')
+        .then(categories => {
+          this.categories = categories.data;
+        })
+        .catch(err => {
+          errors.push(err);
+        })
+    },
     methods: {
-      changeActiveId(id) {
-        this.activeId = id
+      changeActive() {
+
       }
     }
   }
