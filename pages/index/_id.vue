@@ -77,8 +77,9 @@ export default {
   methods: {
     initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: {lat: 37.775, lng: -122.434},
+        zoom: 6,
+        radius: 70,
+        center: {lat: 19.4326077, lng: -99.1332080},
       })
 
       this.getPoints();
